@@ -9,7 +9,7 @@ def get_firebase_config():
        return
 
     with open("./config/firebase_config.json") as f:
-       firebase_config = json.load(f)
+       return json.load(f)
 
 # Initialize the root objects of the databse if they don't already exist
 def setup_db(db):
