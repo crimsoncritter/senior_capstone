@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Cart Assist</string>
+    <string name="Login">Login</string>
+    <string name="request">Request a Cart</string>
+    <string name="noAccount">No account yet?</string>
+    <string name="register">Register</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string-array name="login_array">
+        <item>Customer</item>
+        <item>Attendant</item>
+        <item>Manager</item>
+    </string-array>
+
+</resources>
