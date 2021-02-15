@@ -1,11 +1,14 @@
 package com.example.cartassist;
 
-import java.io.Closeable;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.util.HashMap;
 
@@ -17,22 +20,27 @@ public class ApiService {
         this.apiURI = "http://localhost:5000";
     }
 
-    public String login(String email, String password) {
-        String body = new ObjectMapper().writeValuesAsString(
+    public String login(String email, String password) throws IOException {
+        String body = new ObjectMapper().writeValueAsString(
                 new HashMap<String, String>() {{
             put("name", email);
-            put ("occupation", password);
+            put ("password", password);
         }});
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = client.newBuilder()
-                .uri(URI.create(apiURI + "/user/auth/init"))
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost request = new HttpPost(apiURI + "/user/auth/init");
+        StringEntity entity = new StringEntity(body);
+        request.setEntity(entity);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
+        try {
+            String token = client.execute(request, new BasicResponseHandler());
+            client.close();
 
-        return response.body();
+            return token;
+        } catch(IOException ex) {
+            throw ex;
+        }
     }
 }
