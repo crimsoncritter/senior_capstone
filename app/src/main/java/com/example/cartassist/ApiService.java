@@ -1,12 +1,13 @@
 package com.example.cartassist;
 
+import com.example.cartassist.ApiResponseHandler;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
@@ -35,7 +36,7 @@ public class ApiService {
         request.setHeader("Content-type", "application/json");
 
         try {
-            String token = client.execute(request, new BasicResponseHandler());
+            String token = (String) client.execute(request, new ApiResponseHandler());
             client.close();
 
             return token;
