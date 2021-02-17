@@ -11,17 +11,37 @@ auth = firebase.auth()
 
 app = Flask(__name__)
 
+def login(email, password):
+    user = auth.sign_in_with_email_and_password(email, password)
+    return user["idToken"]
+
 @app.route('/user', methods=['POST'])
-def create_user(user_data):
-    content = request.json
+def create_user():
+    content = request.get_json()
+    fb_data = {}
+    fb_data["role"] = content["role"]
+    fb_data["first_name"] = content["first_name"]
+    fb_data["last_name"] = content["last_name"]
+    fb_data["email"] = content["email"]
+    fb_data["password"] = content["password"]
+
+    if fb_data["role"] == "employee":
+        fb_data["working"] = True
+        fb_data["store_id"] = content["store_id"]
+
+    auth.create_user_with_email_and_password(fb_data["email"], fb_data["password"])
+    db.child("users").push(fb_data)
+    print(fb_data)
+
+    return login(fb_data["email"], fb_data["password"])
 
 @app.route('/user/auth/init', methods=['POST'])
 def auth_user():
+    print("Yes")
     content = request.get_json()
     email = content["email"]
     password = content["password"]
-    user = auth.sign_in_with_email_and_password(email, password)
-    return user["idToken"]
+    return login(email, password)
 
 @app.route('/user/auth/expire', methods=['POST'])
 def expire_user(auth_data):
