@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBg"
+    android:id="@+id/wholeHowItWorks">
+
+
+
+    <ScrollView
+        android:id="@+id/homeScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollLayout">
+
+
+            <ImageView
+                android:id="@+id/howItWorks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="250dp"
+                android:contentDescription="How It Works"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollLayout"
+                app:srcCompat="@drawable/how_it_works" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="287dp"
+                android:layout_height="175dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu justo dolor. Fusce gravida est a mauris ultricies, at vehicula ex suscipit. In hac habitasse platea dictumst. Sed egestas sed ante ac vulputate. Nulla in ipsum lacus. In fringilla, sapien ac euismod bibendum, turpis purus mollis urna, eget sollicitudin augue velit eu neque. Nunc at accumsan quam."
+                android:textAlignment="center"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/requestBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/howItWorks" />
+
+            <Button
+                android:id="@+id/requestBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="160dp"
+                android:backgroundTint="@color/rqtBtnBg"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:shadowColor="@color/black"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:strokeColor="@color/rqtBtnBorder"
+                android:text="Request A Cart"
+                android:textAlignment="gravity"
+                android:textColor="@color/appBg"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/navHeader"
+        android:layout_width="413dp"
+        android:layout_height="222dp"
+        android:layout_marginBottom="530dp"
+        android:contentDescription="Navigation Header"
+        app:layout_constraintBottom_toBottomOf="@+id/homeScroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/header_bg" />
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="412dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="370dp"
+        android:contentDescription="Footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navHeader"
+        app:srcCompat="@drawable/footer_bg" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="190dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/profile"
+        app:layout_constraintBottom_toBottomOf="@id/navHeader"
+        app:layout_constraintLeft_toRightOf="@+id/menu"
+        app:layout_constraintRight_toRightOf="@+id/navHeader"
+        app:layout_constraintTop_toTopOf="@+id/navHeader" />
+
+    <ImageButton
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="300dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/menu"
+        app:layout_constraintBottom_toBottomOf="@+id/navHeader"
+        app:layout_constraintLeft_toLeftOf="@+id/navHeader"
+        app:layout_constraintRight_toRightOf="@+id/navHeader"
+        app:layout_constraintTop_toTopOf="@+id/navHeader" />
+
+    <ImageButton
+        android:id="@+id/logoHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="55dp"
+        android:contentDescription="Logo"
+        android:background="@drawable/logo_sm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/footer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
