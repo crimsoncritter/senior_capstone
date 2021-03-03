@@ -37,38 +37,38 @@ def create_user():
 
 @app.route('/user/auth/init', methods=['POST'])
 def auth_user():
-    print("Yes")
     content = request.get_json()
-    email = content["email"]
-    password = content["password"]
-    return login(email, password)
+    return login(content["email"], content["password"])
 
 @app.route('/user/cart-request', methods=['POST'])
 def new_cart_request():
-    request_data = request.get_json()
-    user_id = request.get_json()["user_id"]
-    cart_request = request.get_json()["cart_request"]
+    # TODO put token in auth header
+    content = request.get_json()
+    user_id = content["user_id"]
+    store_id = content["store_id"]
 
-    user = db.child("user").get(token=user_id)
+    info = auth.get_account_info(user_id)
 
-    if user == None:
+    if info is not None and len(info["users"]) > 0:
         return "User does not exist", 401
-    db.child("cart_request").child(str(uuid.uuid4())).push(cart_request)
-
-@app.route('/user/cart-request/<email>', methods=['GET'])
-def get_cart_requests(email):
-    user_id = request.headers.get("Authentication")
-    user = db.child("user").order_by_child("email").equal_to(email).get()
-    print(user.val())
-
-    if user is None:
-        return "User does not exist", 401
-    # elif email != user["email"]:
-   #     return "User not authenticated", 401
-    elif user["role"] == "Employee" or user["role"] == "admin":
-        return db.child("cart_request").child().get()
     else:
-        return "User does not have access", 403
+        email = info["users"][0]["email"]
+        return dao.cart_request(store_id, email), 200
+
+@app.route('/user/cart-request', methods=['GET'])
+def get_cart_requests():
+    user_id = request.args.get("user_id")
+    store_id = request.args.get("store_id")
+    info = auth.get_account_info(user_id)
+
+    if info is not None and len(info["users"]) > 0:
+        email = info["users"][0]["email"]
+        if dao.is_employee(email):
+            return dao.get_cart_requests(store_id), 200
+        else:
+            return "User does not have access", 403
+    else:
+        return "User does not exist", 406
 
 @app.route('/user/cart-request', methods=['DELETE'])
 def remove_cart_requests():
