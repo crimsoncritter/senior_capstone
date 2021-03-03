@@ -3,6 +3,8 @@ from flask import Flask, jsonify, request, redirect, url_for
 import pyrebase
 import server_init
 import uuid
+import psycopg2
+import postgres_dao as dao
 
 firebase_config = server_init.get_firebase_config()
 firebase = pyrebase.initialize_app(firebase_config)
@@ -16,25 +18,22 @@ def login(email, password):
     user = auth.sign_in_with_email_and_password(email, password)
     return user["idToken"]
 
+@app.route('/status', methods=['GET'])
+def status():
+    return "Up and running"
+
 @app.route('/user', methods=['POST'])
 def create_user():
     content = request.get_json()
-    fb_data = {}
-    fb_data["role"] = content["role"]
-    fb_data["first_name"] = content["first_name"]
-    fb_data["last_name"] = content["last_name"]
-    fb_data["email"] = content["email"]
-    fb_data["password"] = content["password"]
 
-    if fb_data["role"] == "employee":
-        fb_data["working"] = True
-        fb_data["store_id"] = content["store_id"]
+    # TODO: Add email validation
+    auth.create_user_with_email_and_password(content["email"], content["password"])
+    res = dao.create_user(content)
 
-    user = auth.create_user_with_email_and_password(fb_data["email"], fb_data["password"])
-    db.child("users").push(fb_data, user['idToken'])
-    print(fb_data)
+    if res == "error":
+        return "User already exists", 406
 
-    return login(fb_data["email"], fb_data["password"])
+    return login(content["email"], content["password"]), 200
 
 @app.route('/user/auth/init', methods=['POST'])
 def auth_user():
@@ -45,7 +44,7 @@ def auth_user():
     return login(email, password)
 
 @app.route('/user/cart-request', methods=['POST'])
-def new_cart_request(auth_data):
+def new_cart_request():
     request_data = request.get_json()
     user_id = request.get_json()["user_id"]
     cart_request = request.get_json()["cart_request"]
@@ -56,20 +55,23 @@ def new_cart_request(auth_data):
         return "User does not exist", 401
     db.child("cart_request").child(str(uuid.uuid4())).push(cart_request)
 
-@app.route('/user/cart-request', methods=['GET'])
-def get_cart_requests(auth_data):
-    user_id = request.get_json()["user_id"]
-    user = db.child("user").get(token=user_id)
+@app.route('/user/cart-request/<email>', methods=['GET'])
+def get_cart_requests(email):
+    user_id = request.headers.get("Authentication")
+    user = db.child("user").order_by_child("email").equal_to(email).get()
+    print(user.val())
 
-    if user == None:
+    if user is None:
         return "User does not exist", 401
+    # elif email != user["email"]:
+   #     return "User not authenticated", 401
     elif user["role"] == "Employee" or user["role"] == "admin":
         return db.child("cart_request").child().get()
     else:
         return "User does not have access", 403
 
 @app.route('/user/cart-request', methods=['DELETE'])
-def remove_cart_requests(auth_data):
+def remove_cart_requests():
     user_id = request.get_json()["user_id"]
     user = db.child("user").get(token=user_id)
 
