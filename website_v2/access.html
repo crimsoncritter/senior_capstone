@@ -4,6 +4,8 @@
     <title>CARTASSIST</title>
     <link rel = "stylesheet" type = "text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/tables.css">
+
+    <script src="script/addemployee.js"></script>
 </head>
 <body>
     <header>
@@ -29,7 +31,7 @@
           </tr>
           <tr>
               <th>Employee List</th>
-              <td><input type="button" value="+ Add Employee"/></td>
+              <td><input id = "addEmployee" type="button" onclick="addEmployee()" value="+ Add Employee"/></td>
           </tr>
           <tr>
               <td colspan="2">*Employee Information Here*</td>
