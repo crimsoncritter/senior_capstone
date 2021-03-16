@@ -1,5 +1,7 @@
 package com.example.cartassist;
 
+import com.example.cartassist.ApiService;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,6 +16,8 @@ public class Login extends AppCompatActivity {
     String userType;
     Button loginBut;
     Spinner logSpinner;
+    ApiService apiService = new ApiService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,12 @@ public class Login extends AppCompatActivity {
         loginBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //this is where you decide what happens when the login button is clicked
+                // Decide what happens when the login button is clicked
+                try {
+                    // apiService.login(email, password);
+                } catch (Exception ex) {
+                    // Maybe display a message on the UI here
+                }
             }
         });
     }
