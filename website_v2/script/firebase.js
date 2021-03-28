@@ -85,6 +85,11 @@ function add_employee() {
   store = document.getElementById("store").value;
   access = document.getElementById("access").value;
 
+  if (fn == undefined || ln == undefined || em == undefined || pwd == undefined) {
+    console.log("Required fields are empty");
+    return;
+  }
+
   let postData = {
     firstName: fn,
     lastName: ln,
@@ -96,10 +101,10 @@ function add_employee() {
   auth
     .createUserWithEmailAndPassword(em, pwd)
     .then((res) => {
-      console.log(res);
       let updates = {};
       updates["/employees/" + res.uid] = postData;
       database.ref().update(updates);
+      window.location = "./access.html";
     })
     .catch((error) => {
       console.error("Unable to add employee");
