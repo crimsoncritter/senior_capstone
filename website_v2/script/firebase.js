@@ -63,3 +63,19 @@ function populate_table(data) {
     add_row(table, " ", " ");
   }
 }
+
+function edit_store() {
+  sn = document.getElementById("store_num").value;
+  tc = document.getElementById("total_carts").value;
+
+  let storeRef = firebase.database().ref("Stores");
+  storeRef.on("value", (res) => {
+    let store_data = res.val()[sn];
+    store_data["total_carts"] = tc;
+
+    let updates = {};
+    updates["/Stores/" + sn] = store_data;
+    console.log(updates);
+    return database.ref().update(updates);
+  });
+}

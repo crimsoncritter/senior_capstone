@@ -5,7 +5,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/tables.css" />
 
-    <script src="script/editstore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+    <script src="script/firebase.js"></script>
   </head>
   <body>
     <header>
@@ -27,15 +28,19 @@
       <table>
         <tr>
           <th>Store Number:</th>
-          <td>*Store Number Here*</td>
+          <td>
+          <input type="text" id ="store_num"></input>
+          </td>
         </tr>
         <tr>
           <th>Total Carts:</th>
-          <td>*Total Number of Carts Here*</td>
+          <td>
+          <input type="text" id ="total_carts"></input>
+          </td>
         </tr>
         <tr>
           <td colspan="2">
-            <input class="btn" onclick="editStore()" type="button" value="Edit Store" />
+            <input class="btn" onclick="edit_store()" type="button" value="Edit Store" />
           </td>
         </tr>
       </table>
