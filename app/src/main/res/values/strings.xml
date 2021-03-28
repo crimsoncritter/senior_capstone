@@ -13,6 +13,8 @@
     <string name="model">Model (optional)</string>
     <string name="carcolor">Color (optional)</string>
     <string name="create">Create Account</string>
+    <string name="fp">Forgot Password</string>
+    <string name="rp">Reset Password</string>
     <string name="instruction">Input your car info so the attendant can find your car</string>
     <string-array name="login_array">
         <item>Customer</item>

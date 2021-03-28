@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
         android:contentDescription="@string/navhead"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEnterEmail"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEnterEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,8 +28,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextReEnterPass"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEnterEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEnterEmail" />
+        app:layout_constraintStart_toStartOf="@+id/editTextEnterEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEnterEmail" />
 
     <EditText
         android:id="@+id/editTextReEnterPass"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextEnterPass" />
 
     <EditText
-        android:id="@+id/editTextTextEnterEmail"
+        android:id="@+id/editTextEnterEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
@@ -66,13 +66,13 @@
         android:text="@string/ci"
         android:textColor="@color/rqtBtnBg"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCarMake"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextReEnterPass" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/editTextCarMake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -80,24 +80,24 @@
         android:ems="10"
         android:hint="@string/make"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCarModel"
         app:layout_constraintStart_toStartOf="@+id/editTextReEnterPass"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/editTextCarModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"
         android:ems="10"
         android:hint="@string/model"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName4"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextCarColor"
+        app:layout_constraintStart_toStartOf="@+id/editTextCarMake"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCarMake" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/editTextCarColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -105,8 +105,8 @@
         android:hint="@string/carcolor"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintStart_toStartOf="@+id/editTextCarModel"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCarModel" />
 
     <Button
         android:id="@+id/button5"
@@ -116,7 +116,7 @@
         android:layout_marginBottom="58dp"
         android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintStart_toStartOf="@+id/editTextCarColor"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCarColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

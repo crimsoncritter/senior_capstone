@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CartAssist">
-        <activity android:name=".CartRequest"></activity>
+        <activity android:name=".ResetPass"></activity>
+        <activity android:name=".CartRequest" />
         <activity android:name=".CreateAccount" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">

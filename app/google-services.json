@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "656635947935",
+    "project_id": "cart-assist-8dc13",
+    "storage_bucket": "cart-assist-8dc13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656635947935:android:1eb2c58a09ee1f0a666baa",
+        "android_client_info": {
+          "package_name": "com.example.cartassist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656635947935-i4eib6pcqrei6it7d8mrcmnhvkf4j8ok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cartassist",
+            "certificate_hash": "9d8c84f3bd51897595a7d1f03fbf73e75580a82c"
+          }
+        },
+        {
+          "client_id": "656635947935-hm5n7s41uj9jmi7801sq630kjl7sf4t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJx7wxQxatZvbv34uiJRXvtSJuBn1jIiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656635947935-hm5n7s41uj9jmi7801sq630kjl7sf4t2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
