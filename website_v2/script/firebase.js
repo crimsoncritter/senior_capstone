@@ -35,8 +35,6 @@ function stores() {
     let storeRef = firebase.database().ref("Stores");
     storeRef.on("value", (res) => {
       let data = res.val();
-      console.log(data);
-      console.log(data[1]);
       populate_table(data);
     });
   } else {
@@ -75,7 +73,35 @@ function edit_store() {
 
     let updates = {};
     updates["/Stores/" + sn] = store_data;
-    console.log(updates);
     return database.ref().update(updates);
   });
+}
+
+function add_employee() {
+  fn = document.getElementById("fname").value;
+  ln = document.getElementById("lname").value;
+  em = document.getElementById("email").value;
+  pwd = document.getElementById("passwrd").value;
+  store = document.getElementById("store").value;
+  access = document.getElementById("access").value;
+
+  let postData = {
+    firstName: fn,
+    lastName: ln,
+    email: em,
+    store: store,
+    access: access,
+  };
+
+  auth
+    .createUserWithEmailAndPassword(em, pwd)
+    .then((res) => {
+      console.log(res);
+      let updates = {};
+      updates["/employees/" + res.uid] = postData;
+      database.ref().update(updates);
+    })
+    .catch((error) => {
+      console.error("Unable to add employee");
+    });
 }
