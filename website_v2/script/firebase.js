@@ -36,8 +36,30 @@ function stores() {
     storeRef.on("value", (res) => {
       let data = res.val();
       console.log(data);
+      console.log(data[1]);
+      populate_table(data);
     });
   } else {
     window.location = "./login.html";
+  }
+}
+
+function add_row(table, label, value) {
+  let row1 = table.insertRow();
+  let label_elem = row1.insertCell(0);
+  label_elem.innerHTML = label;
+  let elem = row1.insertCell(1);
+  elem.innerHTML = value;
+}
+
+function populate_table(data) {
+  const table = document.getElementById("table");
+  for (let i = 1; i < data.length; i++) {
+    console.log(data[i]);
+    add_row(table, "Store Number: ", i);
+    add_row(table, "Total Carts: ", data[i].total_carts);
+    add_row(table, "Available Carts: ", data[i].available_carts);
+    add_row(table, "Empty Carts: ", data[i].empty_carts);
+    add_row(table, " ", " ");
   }
 }
