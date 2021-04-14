@@ -125,12 +125,12 @@ function add_employee() {
   }
 }
 
-function employee_table(data) {
+function employee_table(data, sn) {
   const table = document.getElementById("employee-table");
   let keys = Object.keys(data);
   keys.forEach((uid) => {
     let user = data[uid];
-    if (user.isEmployee) {
+    if (user.isEmployee && user.store == sn) {
       add_row(table, "Name: ", user.firstName + " " + user.lastName);
       add_row(table, "Email: ", user.email);
       add_row(table, "Store Number: ", user.store);
@@ -140,13 +140,43 @@ function employee_table(data) {
 }
 
 function getEmployees() {
+  sn = document.getElementById("store-num").value;
+
   if (userAuth) {
     let empRef = firebase.database().ref("Users");
     empRef.on("value", (res) => {
       let data = res.val();
-      employee_table(data);
+      employee_table(data, sn);
     });
   } else {
     window.location = "/login";
+  }
+}
+
+function add_store_window() {
+  window.location = "/add_store";
+}
+
+function add_store() {
+  sn = document.getElementById("snum").value;
+  tc = document.getElementById("tcarts").value;
+
+  if (sn == undefined || tc == undefined) {
+    console.log("Required fields are empty");
+    return;
+  }
+
+  let postData = {
+    available_carts: tc,
+    empty_carts: tc,
+    total_carts: tc,
+  };
+
+  if (userAuth) {
+    let updates = {};
+    updates["/Stores/" + sn] = postData;
+    database.ref().update(updates);
+    window.location = "/";
+  } else {
   }
 }

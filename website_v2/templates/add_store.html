@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CARTASSIST</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}" />
+    <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+    <script src="{{ url_for('static', filename='js/firebase.js') }}"></script>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>CartAssist</h1>
+      </div>
+
+      <div class="main">
+        <u1>
+          <li><a href="/">Home</a></li>
+          <li><a href="/store">Store</a></li>
+          <li class="active"><a href="#">Access</a></li>
+          <li><a href="/login">LogIn</a></li>
+        </u1>
+      </div>
+    </header>
+
+    <section>
+      <div class="form">
+        <h2>Add Store</h2>
+        <form>
+          <label for="snum">Store Number</label><br />
+          <input type="text" id="snum" name="snum" /><br /><br />
+
+          <label for="tcarts">Total Carts</label><br />
+          <input type="text" id="tcarts" name="tcarts" /><br /><br />
+
+          <input type="button" value="Create" onClick="add_store()" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
