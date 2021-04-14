@@ -26,7 +26,7 @@ function login() {
   auth.signInWithEmailAndPassword(email, password).then(
     function (user) {
       sessionStorage.setItem("uid", user.uid);
-      window.location = "./index.html";
+      window.location = "/";
     },
     function (e) {
       console.error(e.message);
@@ -42,7 +42,7 @@ function stores() {
       populate_table(data);
     });
   } else {
-    window.location = "./login.html";
+    window.location = "/login";
   }
 }
 
@@ -83,6 +83,10 @@ function edit_store() {
   }
 }
 
+function employeeWindow() {
+  window.location = "/add_employee";
+}
+
 function add_employee() {
   fn = document.getElementById("fname").value;
   ln = document.getElementById("lname").value;
@@ -112,7 +116,7 @@ function add_employee() {
         let updates = {};
         updates["/Users/" + res.uid] = postData;
         database.ref().update(updates);
-        window.location = "./access.html";
+        window.location = "/access";
       })
       .catch((error) => {
         console.error("Unable to add employee");
@@ -143,6 +147,6 @@ function getEmployees() {
       employee_table(data);
     });
   } else {
-    window.location = "./login.html";
+    window.location = "/login";
   }
 }

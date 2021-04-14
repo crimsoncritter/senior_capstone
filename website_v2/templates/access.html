@@ -2,12 +2,11 @@
 <html>
   <head>
     <title>CARTASSIST</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="css/tables.css" />
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}" />
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
-    <script src="script/addemployee.js"></script>
-    <script src="script/firebase.js"></script>
+    <script src="{{ url_for('static', filename='js/firebase.js') }}"></script>
   </head>
   <body>
     <header>
@@ -17,10 +16,10 @@
 
       <div class="main">
         <u1>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="store.html">Store</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/store">Store</a></li>
           <li class="active"><a href="#">Access</a></li>
-          <li><a href="login.html">LogIn</a></li>
+          <li><a href="/login">LogIn</a></li>
         </u1>
       </div>
     </header>
@@ -38,7 +37,7 @@
             <input id="getemployees" type="button" onClick="getEmployees()" value="Get Employees" />
           </td>
           <td>
-            <input id="addEmployee" type="button" onclick="addEmployee()" value="Add Employee" />
+            <input id="addEmployee" type="button" onClick="employeeWindow()" value="Add Employee" />
           </td>
         </tr>
         <tr>
