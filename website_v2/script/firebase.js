@@ -55,18 +55,14 @@ function add_row(table, label, value) {
 }
 
 function populate_table(data) {
-  if (true) {
-    const table = document.getElementById("table");
-    for (let i = 1; i < data.length; i++) {
-      console.log(data[i]);
-      add_row(table, "Store Number: ", i);
-      add_row(table, "Total Carts: ", data[i].total_carts);
-      add_row(table, "Available Carts: ", data[i].available_carts);
-      add_row(table, "Empty Carts: ", data[i].empty_carts);
-      add_row(table, " ", " ");
-    }
-  } else {
-    document.getElementByID("auth-error").innerHTML = "Please login to view store information.";
+  const table = document.getElementById("table");
+  for (let i = 1; i < data.length; i++) {
+    console.log(data[i]);
+    add_row(table, "Store Number: ", i);
+    add_row(table, "Total Carts: ", data[i].total_carts);
+    add_row(table, "Available Carts: ", data[i].available_carts);
+    add_row(table, "Empty Carts: ", data[i].empty_carts);
+    add_row(table, " ", " ");
   }
 }
 
@@ -122,5 +118,31 @@ function add_employee() {
         console.error("Unable to add employee");
       });
   } else {
+  }
+}
+
+function employee_table(data) {
+  const table = document.getElementById("employee-table");
+  let keys = Object.keys(data);
+  keys.forEach((uid) => {
+    let user = data[uid];
+    if (user.isEmployee) {
+      add_row(table, "Name: ", user.firstName + " " + user.lastName);
+      add_row(table, "Email: ", user.email);
+      add_row(table, "Store Number: ", user.store);
+      add_row(table, " ", " ");
+    }
+  });
+}
+
+function getEmployees() {
+  if (userAuth) {
+    let empRef = firebase.database().ref("Users");
+    empRef.on("value", (res) => {
+      let data = res.val();
+      employee_table(data);
+    });
+  } else {
+    window.location = "./login.html";
   }
 }
