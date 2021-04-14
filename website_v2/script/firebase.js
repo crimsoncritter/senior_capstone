@@ -10,11 +10,15 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var auth = firebase.auth();
 var userId = "";
+var userAuth = true;
 
-function is_auth() {
-  const uid = sessionStorage.getItem("uid");
-  return firebase.auth().currentUser.uid == uid;
-}
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    userAuth = true;
+  } else {
+    userAuth = false;
+  }
+});
 
 function login() {
   let email = document.getElementById("email").value;
@@ -31,7 +35,7 @@ function login() {
 }
 
 function stores() {
-  if (is_auth) {
+  if (userAuth) {
     let storeRef = firebase.database().ref("Stores");
     storeRef.on("value", (res) => {
       let data = res.val();
@@ -51,14 +55,18 @@ function add_row(table, label, value) {
 }
 
 function populate_table(data) {
-  const table = document.getElementById("table");
-  for (let i = 1; i < data.length; i++) {
-    console.log(data[i]);
-    add_row(table, "Store Number: ", i);
-    add_row(table, "Total Carts: ", data[i].total_carts);
-    add_row(table, "Available Carts: ", data[i].available_carts);
-    add_row(table, "Empty Carts: ", data[i].empty_carts);
-    add_row(table, " ", " ");
+  if (true) {
+    const table = document.getElementById("table");
+    for (let i = 1; i < data.length; i++) {
+      console.log(data[i]);
+      add_row(table, "Store Number: ", i);
+      add_row(table, "Total Carts: ", data[i].total_carts);
+      add_row(table, "Available Carts: ", data[i].available_carts);
+      add_row(table, "Empty Carts: ", data[i].empty_carts);
+      add_row(table, " ", " ");
+    }
+  } else {
+    document.getElementByID("auth-error").innerHTML = "Please login to view store information.";
   }
 }
 
@@ -66,15 +74,17 @@ function edit_store() {
   sn = document.getElementById("store_num").value;
   tc = document.getElementById("total_carts").value;
 
-  let storeRef = firebase.database().ref("Stores");
-  storeRef.on("value", (res) => {
-    let store_data = res.val()[sn];
-    store_data["total_carts"] = tc;
+  if (userAuth) {
+    let storeRef = firebase.database().ref("Stores");
+    storeRef.on("value", (res) => {
+      let store_data = res.val()[sn];
+      store_data["total_carts"] = tc;
 
-    let updates = {};
-    updates["/Stores/" + sn] = store_data;
-    return database.ref().update(updates);
-  });
+      let updates = {};
+      updates["/Stores/" + sn] = store_data;
+      return database.ref().update(updates);
+    });
+  }
 }
 
 function add_employee() {
@@ -96,17 +106,21 @@ function add_employee() {
     email: em,
     store: store,
     access: access,
+    isEmployee: true,
   };
 
-  auth
-    .createUserWithEmailAndPassword(em, pwd)
-    .then((res) => {
-      let updates = {};
-      updates["/employees/" + res.uid] = postData;
-      database.ref().update(updates);
-      window.location = "./access.html";
-    })
-    .catch((error) => {
-      console.error("Unable to add employee");
-    });
+  if (userAuth) {
+    auth
+      .createUserWithEmailAndPassword(em, pwd)
+      .then((res) => {
+        let updates = {};
+        updates["/Users/" + res.uid] = postData;
+        database.ref().update(updates);
+        window.location = "./access.html";
+      })
+      .catch((error) => {
+        console.error("Unable to add employee");
+      });
+  } else {
+  }
 }
