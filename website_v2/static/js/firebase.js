@@ -35,13 +35,10 @@ function login() {
 }
 
 function stores() {
-  console.log("here");
   if (userAuth) {
-    console.log("is auth");
     let storeRef = firebase.database().ref("Stores");
     storeRef.on("value", (res) => {
       let data = res.val();
-      console.log(data);
       populate_table(data);
     });
   } else {
@@ -49,23 +46,26 @@ function stores() {
   }
 }
 
-function add_row(table, label, value) {
+function add_row(table, sn, tc, ac, ec) {
   let row1 = table.insertRow();
-  let label_elem = row1.insertCell(0);
-  label_elem.innerHTML = label;
-  let elem = row1.insertCell(1);
-  elem.innerHTML = value;
+
+  let sn_elem = row1.insertCell(0);
+  sn_elem.innerHTML = sn;
+
+  let tc_elem = row1.insertCell(1);
+  tc_elem.innerHTML = tc;
+
+  let ac_elem = row1.insertCell(2);
+  ac_elem.innerHTML = ac;
+
+  let ec_elem = row1.insertCell(3);
+  ec_elem.innerHTML = ec;
 }
 
 function populate_table(data) {
-  const table = document.getElementById("table");
+  const table = document.getElementById("store_table");
   for (let i = 1; i < data.length; i++) {
-    console.log(data[i]);
-    add_row(table, "Store Number: ", i);
-    add_row(table, "Total Carts: ", data[i].total_carts);
-    add_row(table, "Available Carts: ", data[i].available_carts);
-    add_row(table, "Empty Carts: ", data[i].empty_carts);
-    add_row(table, " ", " ");
+    add_row(table, i, data[i].total_carts, data[i].available_carts, data[i].empty_carts);
   }
 }
 
@@ -141,18 +141,33 @@ function add_employee() {
   }
 }
 
+function add_employee_row(table, name, email, sn) {
+  let row1 = table.insertRow();
+
+  let n_elem = row1.insertCell(0);
+  n_elem.innerHTML = name;
+
+  let e_elem = row1.insertCell(1);
+  e_elem.innerHTML = email;
+
+  let sn_elem = row1.insertCell(2);
+  sn_elem.innerHTML = sn;
+}
+
 function employee_table(data, sn) {
   const table = document.getElementById("employee-table");
   let keys = Object.keys(data);
   keys.forEach((uid) => {
     let user = data[uid];
     if (user.isEmployee && user.store == sn) {
-      add_row(table, "Name: ", user.firstName + " " + user.lastName);
-      add_row(table, "Email: ", user.email);
-      add_row(table, "Store Number: ", user.store);
-      add_row(table, " ", " ");
+      un = user.firstName + " " + user.lastName;
+      add_employee_row(table, un, user.email, user.store);
     }
   });
+  const card = document.getElementById("employee-card");
+  const icard = document.getElementById("init-card");
+  card.style.display = "block";
+  icard.style.display = "none";
 }
 
 function getEmployees() {

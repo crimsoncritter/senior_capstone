@@ -26,12 +26,31 @@
       </nav>
     </header>
 
-    <section>
-      <label id="auth-error" style="color: red;"></label>
-      <table id="table"></table>
-      <script>
-        stores();
-      </script>
-    </section>
+    <div class="row">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Store Information</span>
+            <div class="table-responsive">
+              <table class="striped" id="store_table">
+                <thead>
+                  <tr>
+                    <th>Store Number</th>
+                    <th>Total Carts</th>
+                    <th>Available Carts</th>
+                    <th>Empty Carts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <script>
+                    stores();
+                  </script>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
