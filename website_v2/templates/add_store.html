@@ -3,24 +3,28 @@
   <head>
     <title>CARTASSIST</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}" />
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
     <script src="{{ url_for('static', filename='js/firebase.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
   <body>
     <header>
-      <div class="title">
-        <h1>CartAssist</h1>
-      </div>
-
-      <div class="main">
-        <u1>
-          <li><a href="/">Home</a></li>
-          <li><a href="/store">Store</a></li>
-          <li class="active"><a href="#">Access</a></li>
-          <li><a href="/login">LogIn</a></li>
-        </u1>
-      </div>
+      <nav>
+        <div class="nav-wrapper #80cbc4 teal lighten-1">
+          <a href="/" class="brand-logo" style="padding: 5px;">Cart Assist</a>
+          <u1 id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/access">Access</a></li>
+            <li><a href="/login">LogIn</a></li>
+          </u1>
+        </div>
+      </nav>
     </header>
 
     <section>

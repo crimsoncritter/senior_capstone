@@ -35,10 +35,13 @@ function login() {
 }
 
 function stores() {
+  console.log("here");
   if (userAuth) {
+    console.log("is auth");
     let storeRef = firebase.database().ref("Stores");
     storeRef.on("value", (res) => {
       let data = res.val();
+      console.log(data);
       populate_table(data);
     });
   } else {
@@ -69,17 +72,30 @@ function populate_table(data) {
 function edit_store() {
   sn = document.getElementById("store_num").value;
   tc = document.getElementById("total_carts").value;
+  console.log("hello there");
+  const ref = firebase.database().ref("Stores");
 
   if (userAuth) {
-    let storeRef = firebase.database().ref("Stores");
-    storeRef.on("value", (res) => {
-      let store_data = res.val()[sn];
-      store_data["total_carts"] = tc;
+    firebase
+      .database()
+      .ref("Stores")
+      .once("value")
+      .then((res) => {
+        if (res.exists()) {
+          let store_data = res.val()[sn];
+          store_data["total_carts"] = tc;
 
-      let updates = {};
-      updates["/Stores/" + sn] = store_data;
-      return database.ref().update(updates);
-    });
+          let updates = {};
+          updates["/Stores/" + sn] = store_data;
+          return database.ref().update(updates);
+          window.location = "/";
+        } else {
+          console.log("No data found");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 
@@ -91,9 +107,9 @@ function add_employee() {
   fn = document.getElementById("fname").value;
   ln = document.getElementById("lname").value;
   em = document.getElementById("email").value;
-  pwd = document.getElementById("passwrd").value;
+  pwd = document.getElementById("password").value;
   store = document.getElementById("store").value;
-  access = document.getElementById("access").value;
+  access = document.getElementById("access").checked;
 
   if (fn == undefined || ln == undefined || em == undefined || pwd == undefined) {
     console.log("Required fields are empty");
