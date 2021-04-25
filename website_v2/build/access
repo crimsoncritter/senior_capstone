@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart Assist</title>
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+    <script src="/static/js/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper #80cbc4 teal lighten-1">
+          <a href="#" class="brand-logo" style="padding: 5px;">Cart Assist</a>
+          <u1 id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="#">Access</a></li>
+            <li><a href="/login">LogIn</a></li>
+          </u1>
+        </div>
+      </nav>
+    </header>
+
+    <div class="row" id="init-card">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Employee Access</span>
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="store-num">Store Number</label>
+                <input id="store-num" type="text" class="validate" />
+                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+              </div>
+            </div>
+            <div class="card-action">
+              <a class="waves-effect waves-light btn" onClick="getEmployees()">Get Employees</a>
+              <a
+                style="margin: 10px;"
+                class="waves-effect waves-light btn"
+                onClick="employeeWindow()"
+                >Add Employee</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="employee-card" style="display: none;">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Employees</span>
+            <div class="table-responsive">
+              <table class="striped" id="employee-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Store Number</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-action">
+            <a class="waves-effect waves-light btn" href="/access">Back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CARTASSIST</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+    <script src="/static/js/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper #80cbc4 teal lighten-1">
+          <a href="/" class="brand-logo" style="padding: 5px;">Cart Assist</a>
+          <u1 id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Store</a></li>
+            <li><a href="/access">Access</a></li>
+            <li><a href="/login">LogIn</a></li>
+          </u1>
+        </div>
+      </nav>
+    </header>
+
+    <div class="row" id="store-card">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Update Store Carts</span>
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="store_num">Store Number</label>
+                <input id="store_num" type="text" class="validate" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="total_carts">Total Carts</label>
+                <input id="total_carts" type="text" class="validate" />
+              </div>
+            </div>
+            <div class="card-action">
+              <a style="margin: 10px;" class="waves-effect waves-light btn" onClick="edit_store()"
+                >Edit store</a
+              >
+              <a
+                style="margin: 10px;"
+                class="waves-effect waves-light btn"
+                onClick="add_store_window()"
+                >Add Store</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
