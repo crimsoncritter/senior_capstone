@@ -10,32 +10,46 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var auth = firebase.auth();
 var userId = "";
-var userAuth = true;
+var store_error = true;
 
 auth.onAuthStateChanged((user) => {
   if (user) {
-    userAuth = true;
+    let empRef = firebase.database().ref("Users/" + user.uid);
+    empRef.on("value", (res) => {
+      let data = res.val();
+      console.log(data);
+      if (data.access == true) {
+        sessionStorage.setItem("userAuth", true);
+      } else {
+        sessionStorage.setItem("userAuth", false);
+      }
+    });
   } else {
-    userAuth = false;
+    sessionStorage.setItem("userAuth", false);
   }
 });
+
+function checkAuth() {
+  return sessionStorage.getItem("userAuth");
+}
 
 function login() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   auth.signInWithEmailAndPassword(email, password).then(
     function (user) {
-      sessionStorage.setItem("uid", user.uid);
+      userId = user.uid;
       window.location = "/";
     },
     function (e) {
-      console.error(e.message);
+      const pw_helper = document.getElementById("password");
+      pw_helper.classList.add("invalid");
     }
   );
 }
 
 function stores() {
-  if (userAuth) {
+  if (checkAuth) {
     let storeRef = firebase.database().ref("Stores");
     storeRef.on("value", (res) => {
       let data = res.val();
@@ -72,10 +86,25 @@ function populate_table(data) {
 function edit_store() {
   sn = document.getElementById("store_num").value;
   tc = document.getElementById("total_carts").value;
-  console.log("hello there");
-  const ref = firebase.database().ref("Stores");
+  error = false;
 
-  if (userAuth) {
+  if (sn == undefined || sn == 0) {
+    const helper = document.getElementById("store_num");
+    helper.classList.add("invalid");
+    error = true;
+  }
+  if (tc == undefined || tc == 0) {
+    const helper = document.getElementById("total_carts");
+    helper.classList.add("invalid");
+    error = true;
+  }
+
+  if (error) {
+    return;
+  }
+
+  const ref = firebase.database().ref("Stores");
+  if (checkAuth()) {
     firebase
       .database()
       .ref("Stores")
@@ -83,12 +112,16 @@ function edit_store() {
       .then((res) => {
         if (res.exists()) {
           let store_data = res.val()[sn];
+          if (store_data == undefined) {
+            const helper = document.getElementById("store_num");
+            helper.classList.add("invalid");
+            return;
+          }
           store_data["total_carts"] = tc;
 
           let updates = {};
           updates["/Stores/" + sn] = store_data;
           return database.ref().update(updates);
-          window.location = "/";
         } else {
           console.log("No data found");
         }
@@ -96,6 +129,9 @@ function edit_store() {
       .catch((error) => {
         console.error(error);
       });
+    window.location = "/";
+  } else {
+    window.location = "/login";
   }
 }
 
@@ -125,7 +161,7 @@ function add_employee() {
     isEmployee: true,
   };
 
-  if (userAuth) {
+  if (checkAuth()) {
     auth
       .createUserWithEmailAndPassword(em, pwd)
       .then((res) => {
@@ -157,27 +193,48 @@ function add_employee_row(table, name, email, sn) {
 function employee_table(data, sn) {
   const table = document.getElementById("employee-table");
   let keys = Object.keys(data);
+  let count = 0;
   keys.forEach((uid) => {
     let user = data[uid];
     if (user.isEmployee && user.store == sn) {
       un = user.firstName + " " + user.lastName;
       add_employee_row(table, un, user.email, user.store);
+      if (user.store >= sn) {
+        store_error = false;
+      }
     }
   });
-  const card = document.getElementById("employee-card");
-  const icard = document.getElementById("init-card");
-  card.style.display = "block";
-  icard.style.display = "none";
+
+  return count;
 }
+
+function isAdmin(uid) {}
 
 function getEmployees() {
   sn = document.getElementById("store-num").value;
 
-  if (userAuth) {
+  if (sn == undefined || sn == 0) {
+    const helper = document.getElementById("store-num");
+    helper.classList.add("invalid");
+
+    return;
+  }
+
+  if (checkAuth()) {
     let empRef = firebase.database().ref("Users");
     empRef.on("value", (res) => {
       let data = res.val();
-      employee_table(data, sn);
+      console.log(data);
+      count = employee_table(data, sn);
+      if (store_error) {
+        const helper = document.getElementById("store-num");
+        helper.classList.add("invalid");
+      } else {
+        const card = document.getElementById("employee-card");
+        const icard = document.getElementById("init-card");
+        card.style.display = "block";
+        icard.style.display = "none";
+      }
     });
   } else {
     window.location = "/login";
@@ -192,8 +249,14 @@ function add_store() {
   sn = document.getElementById("snum").value;
   tc = document.getElementById("tcarts").value;
 
-  if (sn == undefined || tc == undefined) {
-    console.log("Required fields are empty");
+  if (sn == undefined || sn == 0) {
+    const helper = document.getElementById("snum");
+    helper.classList.add("invalid");
+    return;
+  }
+  if (tc == undefined || tc == 0) {
+    const helper = document.getElementById("tcarts");
+    helper.classList.add("invalid");
     return;
   }
 
@@ -203,7 +266,7 @@ function add_store() {
     total_carts: tc,
   };
 
-  if (userAuth) {
+  if (checkAuth()) {
     let updates = {};
     updates["/Stores/" + sn] = postData;
     database.ref().update(updates);

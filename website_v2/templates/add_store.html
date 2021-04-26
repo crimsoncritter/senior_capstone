@@ -26,19 +26,36 @@
       </nav>
     </header>
 
-    <section>
-      <div class="form">
-        <h2>Add Store</h2>
-        <form>
-          <label for="snum">Store Number</label><br />
-          <input type="text" id="snum" name="snum" /><br /><br />
-
-          <label for="tcarts">Total Carts</label><br />
-          <input type="text" id="tcarts" name="tcarts" /><br /><br />
-
-          <input type="button" value="Create" onClick="add_store()" />
-        </form>
+    <div class="row" id="store-card">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Add Store</span>
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="snum">Store Number</label>
+                <input id="snum" type="text" class="validate" />
+                <span class="helper-text" data-error="Please enter a valid store number"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="tcarts">Total Carts</label>
+                <input id="tcarts" type="text" class="validate" />
+                <span
+                  class="helper-text"
+                  data-error="Please enter a valid total cart number"
+                ></span>
+              </div>
+            </div>
+            <div class="card-action">
+              <a style="margin: 10px;" class="waves-effect waves-light btn" onClick="add_store()"
+                >Create store</a
+              >
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   </body>
 </html>

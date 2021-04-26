@@ -15,13 +15,13 @@
   <body>
     <header>
       <nav>
-        <div class="nav-wrapper #80cbc4 teal lighten-1">
+        <div class="nav-wrapper teal lighten-1">
           <a href="#" class="brand-logo" style="padding: 5px;">Cart Assist</a>
           <u1 id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/store">Store</a></li>
             <li><a href="/access">Access</a></li>
-            <li><a href="/login">LogIn</a></li>
+            <li><a href="#">LogIn</a></li>
           </u1>
         </div>
       </nav>
@@ -38,16 +38,18 @@
              <div class="input-field col s12 white-text">
                <input id="email" type="email" class="validate">
                <label for="email">Email</label>
+               <span class="helper-text" data-error="Please enter a valid email"></span>
              </div>
            </div>
            <div class="row">
              <div class="input-field col s12 white-text">
                <input id="password" type="password" class="validate">
                <label for="password">Password</label>
+               <span id="pw-helper invalid" class="helper-text" data-error="Invalid email or password"></span>
              </div>
            </div>
            <div class="card-action">
-           <a style="margin: 10px" class="waves-effect waves-light btn" href="#" onClick="login()">Login</a>
+           <a style="margin: 10px" class="waves-effect waves-light btn" onClick="login()">Login</a>
            <a style="margin: 10px" class="waves-effect waves-light btn" href="/">Cancel</a>
            </div>
          </div>

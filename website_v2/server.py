@@ -22,6 +22,10 @@ def login():
 def add_employee():
   return render_template("add_employee.html")
 
+@app.route('/remove_employee')
+def remove_employee():
+  return render_template("remove_employee.html")
+
 @app.route('/add_store')
 def add_store():
   return render_template("add_store.html")
