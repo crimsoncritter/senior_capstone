@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccount">
 
-    <ImageView
-        android:id="@+id/navHeader4"
-        android:layout_width="410dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
-        android:contentDescription="@string/navhead"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEnterEmail"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="69dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header_bg" />
+        app:srcCompat="@drawable/home_button" />
 
     <EditText
         android:id="@+id/editTextEnterPass"
@@ -28,8 +26,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextReEnterPass"
-        app:layout_constraintStart_toStartOf="@+id/editTextEnterEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEnterEmail" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextReEnterPass"
@@ -41,48 +39,47 @@
         android:hint="@string/reenter"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/editTextEnterPass"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEnterPass" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextEnterEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextEnterPass"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navHeader4" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/ci"
         android:textColor="@color/rqtBtnBg"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextCarMake"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextReEnterPass" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextCarMake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="9dp"
         android:ems="10"
         android:hint="@string/make"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextCarModel"
-        app:layout_constraintStart_toStartOf="@+id/editTextReEnterPass"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextCarModel"
@@ -93,30 +90,29 @@
         android:hint="@string/model"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextCarColor"
-        app:layout_constraintStart_toStartOf="@+id/editTextCarMake"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCarMake" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextCarColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="23dp"
         android:ems="10"
         android:hint="@string/carcolor"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/editTextCarModel"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCarModel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editTextCarColor"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCarColor" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

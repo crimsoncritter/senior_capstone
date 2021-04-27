@@ -7,16 +7,28 @@
     tools:context=".CartRequest">
 
     <EditText
+        android:id="@+id/editTextParkingCR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="53dp"
+        android:ems="10"
+        android:hint="@string/parkarea"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
         android:id="@+id/editTextColorCR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
         android:hint="@string/carcolor"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="@+id/editTextModelCR"
-        app:layout_constraintTop_toBottomOf="@+id/editTextModelCR" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextParkingCR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextModelCR"
@@ -27,8 +39,8 @@
         android:hint="@string/model"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextColorCR"
-        app:layout_constraintStart_toStartOf="@+id/editTextMakeCR"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMakeCR" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextMakeCR"
@@ -40,53 +52,51 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextModelCR"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="27dp"
         android:text="@string/ci"
         android:textColor="@color/rqtBtnBg"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextMakeCR"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navHeader6" />
-
-    <ImageView
-        android:id="@+id/navHeader6"
-        android:layout_width="410dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/navhead"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header_bg" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="179dp"
+        android:layout_marginBottom="56dp"
         android:text="@string/request"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editTextColorCR"
-        app:layout_constraintTop_toBottomOf="@+id/editTextColorCR" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="317dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/instruction"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textColor="@color/rqtBtnBorder"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="69dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

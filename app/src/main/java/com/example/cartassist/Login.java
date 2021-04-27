@@ -5,6 +5,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,21 +25,31 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+
 public class Login extends AppCompatActivity {
     String userType;
     Button loginBut;
     Button regBut;
     Spinner logSpinner;
+    private ImageButton imBut;
     private EditText emailED, passwordED;
     private TextView forgotPassword;
+    private DatabaseReference mDatabase;
+    private FirebaseUser user;
+    private Status status;
+    private FirebaseFirestore fireStoreDB;
 
     private FirebaseAuth mAuth;
+    private String userID;
+    private boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +61,15 @@ public class Login extends AppCompatActivity {
         loginBut = (Button)findViewById(R.id.button3);
         regBut = (Button)findViewById(R.id.button4);
         logSpinner = (Spinner) findViewById(R.id.spinner);
+        imBut = (ImageButton)findViewById(R.id.imageButton3);
 
         emailED = (EditText)findViewById(R.id.editTextEmailAddressL);
         passwordED = (EditText)findViewById(R.id.editTextPasswordL);
         forgotPassword = (TextView)findViewById(R.id.fp);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        fireStoreDB = FirebaseFirestore.getInstance();
 
         ArrayAdapter<String> logAdapter = new ArrayAdapter<String>(Login.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.login_array));
@@ -96,6 +117,13 @@ public class Login extends AppCompatActivity {
                 openResetPass();
             }
         });
+
+        imBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
     }
 
     public void openResetPass(){
@@ -136,17 +164,70 @@ public class Login extends AppCompatActivity {
             return;
         }
 
+        
+
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                    startActivity(new Intent(Login.this,MainActivity.class));
+                    status = Status.getInstance();
+                    //if(userType == "attendant" || userType == "manager"){
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    userID = user.getUid();
+                    status.setState(userType);
+                    mDatabase.child("Users").child(userID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if(task.isSuccessful()){
+
+
+                                if((Boolean)task.getResult().child("isEmployee").getValue()){
+                                    if(userType == "attendant"){
+                                        FirebaseMessaging.getInstance().subscribeToTopic("requests");
+                                        status.setState("attendant");
+                                        mDatabase.child("Stores").child("1").child("attendant_on_duty").setValue(true);
+                                    }
+                                    else if(userType == "manager"){
+                                        FirebaseMessaging.getInstance().subscribeToTopic("manager");
+                                        status.setState("manager");
+                                    }
+
+
+                                }
+                                else{
+                                    status.setState("customer");
+                                    if(!(Boolean)task.getResult().child("multipleCars").getValue()){
+                                        status.setCarSelected(true);
+                                    }
+                                    else{
+                                            status.setCarSelected(false);
+                                    }
+                                }
+
+                            }
+
+                        }
+                    });
+
+                    /*}
+                    else{
+                        status.setState("customer");
+                    }*/
+
+
+                    Toast.makeText(Login.this, "Succesfully Logged In",Toast.LENGTH_LONG).show();
+                   // startActivity(new Intent(Login.this,MainActivity.class));
                 }else{
                     Toast.makeText(Login.this, "Failed to login, please check your credentials",Toast.LENGTH_LONG).show();
                 }
 
             }
         });
+    }
+
+    private void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

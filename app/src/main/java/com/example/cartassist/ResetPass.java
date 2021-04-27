@@ -3,11 +3,13 @@ package com.example.cartassist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ResetPass extends AppCompatActivity {
     private EditText emailED;
     private Button resetBut;
+    private ImageButton imBut;
 
     FirebaseAuth auth;
     @Override
@@ -27,11 +30,19 @@ public class ResetPass extends AppCompatActivity {
         emailED = (EditText)findViewById(R.id.editTextEmailReset);
         resetBut = (Button)findViewById(R.id.button10);
         auth = FirebaseAuth.getInstance();
+        imBut = (ImageButton)findViewById(R.id.imageButton4);
 
         resetBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetPassword();
+            }
+        });
+
+        imBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
             }
         });
     }
@@ -61,5 +72,10 @@ public class ResetPass extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

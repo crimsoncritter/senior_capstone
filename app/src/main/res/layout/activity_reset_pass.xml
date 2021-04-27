@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ResetPass">
 
-    <ImageView
-        android:id="@+id/navHeader5"
-        android:layout_width="432dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="11dp"
-        android:contentDescription="@string/navhead"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmailReset"
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="69dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header_bg" />
+        app:srcCompat="@drawable/home_button" />
 
     <EditText
         android:id="@+id/editTextEmailReset"
@@ -29,17 +28,17 @@
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navHeader5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="359dp"
+        android:layout_marginBottom="340dp"
         android:text="@string/rp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editTextEmailReset"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailReset" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

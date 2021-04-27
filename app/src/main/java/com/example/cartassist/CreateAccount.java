@@ -3,24 +3,27 @@ package com.example.cartassist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccount extends AppCompatActivity {
 
     private EditText emailED, passwordED, passwordReED, makeED, modelED, carColorED;
     private Button registerBut;
-
+    private ImageButton imBut;
     private FirebaseAuth mAuth;
 
     @Override
@@ -29,7 +32,7 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
 
         mAuth = FirebaseAuth.getInstance();
-
+        imBut = (ImageButton)findViewById(R.id.imageButton2);
         emailED = (EditText)findViewById(R.id.editTextEnterEmail);
         passwordED = (EditText)findViewById(R.id.editTextEnterPass);
         passwordReED = (EditText)findViewById(R.id.editTextReEnterPass);
@@ -42,6 +45,13 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerUser();
+            }
+        });
+
+        imBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
             }
         });
     }
@@ -115,7 +125,7 @@ public class CreateAccount extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            User user = new User(email,make,model,carColor);
+                            User user = new User(email,false,false);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -124,6 +134,10 @@ public class CreateAccount extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if(task.isSuccessful()){
+                                        Car userCar = new Car(make,model, carColor);
+
+                                        FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Cars").child("car1").setValue(userCar);
                                         Toast.makeText(CreateAccount.this,"User has been registered successfully!", Toast.LENGTH_LONG).show();
                                     }
                                     else{
@@ -136,5 +150,10 @@ public class CreateAccount extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
